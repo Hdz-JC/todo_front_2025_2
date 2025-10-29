@@ -129,7 +129,8 @@ export const useTodos = () => {
 
         try {
             // Alterna entre COMPLETED y PENDING
-            const newStatus: TodoStatus = todo.status === 'COMPLETED' ? 'PENDING' : 'COMPLETED';
+            //const newStatus: TodoStatus = todo.status === 'COMPLETED' ? 'PENDING' : 'COMPLETED';
+            const newStatus: TodoStatus = todo.status;
             // Actualiza en el backend
             const updatedTodo = await todosApi.updateTodo(id, {
                 title: todo.title,
