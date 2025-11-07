@@ -78,6 +78,9 @@ services:
     restart: unless-stopped
 
   todo-back-app:
+    build: 
+      context: ../../plantilla_todo_2025_2
+      dockerfile: Dockerfile
     image: todo-back-app-2025
     container_name: todo-back-app
     environment:
