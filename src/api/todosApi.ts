@@ -26,7 +26,6 @@
  * PATRÓN: Repository Pattern / Service Layer
  * ============================================================================
  */
-
 import keycloak from '../auth/keycloak';
 import type { CreateTodoDto, Todo, UpdateTodoDto } from '../types/todo.types';
 
@@ -52,12 +51,12 @@ export const fetchAllTodos = async (): Promise<Todo[]> => {
       ...(keycloak.authenticated && keycloak.token ? { Authorization: `Bearer ${keycloak.token}` } : {}),
     },
   });
-  
+
   // Verifica si la respuesta es exitosa (status 200-299)
   if (!response.ok) {
     throw new Error(`Error ${response.status}: ${response.statusText}`);
   }
-  
+
   // Parsea y devuelve el JSON (array de tareas)
   return await response.json();
 };
@@ -76,11 +75,11 @@ export const searchTodos = async (query: string): Promise<Todo[]> => {
       ...(keycloak.authenticated && keycloak.token ? { Authorization: `Bearer ${keycloak.token}` } : {}),
     },
   });
-  
+
   if (!response.ok) {
     throw new Error(`Error ${response.status}: ${response.statusText}`);
   }
-  
+
   return await response.json();
 };
 
@@ -171,7 +170,7 @@ export const deleteTodo = async (id: number): Promise<void> => {
 export const deleteMultipleTodos = async (ids: number[]): Promise<void> => {
   // Crea un array de promesas (una por cada tarea a eliminar)
   const deletePromises = ids.map(id => deleteTodo(id));
-  
+
   // Espera a que TODAS las promesas se completen
   // Si alguna falla, Promise.all lanza un error
   await Promise.all(deletePromises);
